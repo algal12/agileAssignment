@@ -10,3 +10,6 @@ match IP_type:
         pass
     case _: # Default case; If they don't input 4 or 6 just close the program
         print("You have given wrong input. Closing program.")
+
+
+        # testing for ability to push

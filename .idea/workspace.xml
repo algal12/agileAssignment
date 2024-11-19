@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="56d3e4e8-8f4d-4dd3-af3c-3dcbea9dfa96" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/portTCPScanner.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/portScanner.py" beforeDir="false" afterPath="$PROJECT_DIR$/portScanner.py" afterDir="false" />
     </list>
@@ -73,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732037736975</updated>
-      <workItem from="1732037737152" duration="1445000" />
+      <workItem from="1732037737152" duration="2633000" />
     </task>
     <servers />
   </component>
