@@ -76,10 +76,13 @@ IP_type = input().strip()  # Will only accept 4 or 6
 print("Please enter IP address.")
 IP_address = input().strip()
 
+
+if IP_type != "4" and IP_type != "6":
+    print("Invalid IP type. Please try again.") # reminder to add a break here when we loop this, so it breaks the loop and it doesn't check for the IP address.
 if checkIPType(IP_type, IP_address):  # Now the function returns the actual result
     print("Correct IP address")
 else:
-    print("Wrong")
+    print("Wrong IP address")
 
 
 
