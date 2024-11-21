@@ -1,5 +1,6 @@
 # This will be the main interface for Port Scanning. All the functionality will be placed in other classes, this is just an intermediate between them. This will also server as an IP checker.
 from ipChecker import checkIPType
+from portTCPScanner import get_ports, scan_ports
 
 print("Welcome to Port Scanner. Please select if you're using an IPv4 or IPv6 address (Type 4 for IPv4, type 6 for IPv6)")
 IP_type = input().strip()  # Will only accept 4 or 6
@@ -13,7 +14,8 @@ else:
         print("Please input whether you want a TCP, UDP or TCP/UDP scan.")
         scan_type = input()
         if scan_type.upper() == "TCP":
-            print("going for tcp scan")
+            ports = get_ports()
+            scan_ports(IP_address, ports)
         elif scan_type.upper() == "UDP":
             print("going for UDP")
         elif scan_type.upper() == "TCP/UDP":
