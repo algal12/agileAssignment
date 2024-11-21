@@ -3,16 +3,26 @@ from ipChecker import checkIPType
 
 print("Welcome to Port Scanner. Please select if you're using an IPv4 or IPv6 address (Type 4 for IPv4, type 6 for IPv6)")
 IP_type = input().strip()  # Will only accept 4 or 6
-print("Please enter IP address.")
-IP_address = input().strip()
-
-
 if IP_type != "4" and IP_type != "6":
-    print("Invalid IP type. Please try again.") # reminder to add a break here when we loop this, so it breaks the loop and it doesn't check for the IP address.
-if checkIPType(IP_type, IP_address):  # Now the function returns the actual result
-    print("Correct IP address")
+    print("Invalid IP type. Please try again.") # reminder to add a break here when we loop this, so it breaks the loop and it doesn't check for the IP address (if we loop it).
 else:
-    print("Wrong IP address")
+    print("Please enter IP address.")
+    IP_address = input().strip()
+    if checkIPType(IP_type, IP_address):  # Now the function returns the actual result
+        print("IP Address validated.")
+        print("Please input whether you want a TCP, UDP or TCP/UDP scan.")
+        scan_type = input()
+        if scan_type.upper() == "TCP":
+            print("going for tcp scan")
+        elif scan_type.upper() == "UDP":
+            print("going for UDP")
+        elif scan_type.upper() == "TCP/UDP":
+            print("going for TCP/UDP")
+        else:
+            print("Incorrect Port Scan type.")
+    else:
+        print("IP address entered is invalid.")
+
 
 
 
