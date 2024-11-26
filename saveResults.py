@@ -39,3 +39,24 @@ def save_scan_results(results, scan_type, filename="scan_results.txt"):
             print(f"Results saved to {filename}")
     except Exception as e:
         print(f"Error saving results: {e}")
+
+from ipGeolocation import generate_map_link
+def save_geolocation_results(geo_data, filename="geolocation_results.txt"):
+    """Save the geolocation results to a text file.
+    :param geo_data: The geolocation results dictionary containing "latitude", "longitude", and "accuracy" ports.
+    :param filename: Name of the file to save the results to (default is "geolocation_results.txt")."""
+    try:
+        with open(filename, "w") as file:
+            file.write("=" * 50 + "\n")
+            file.write(f"Geolocation Results for IP: {geo_data['ip']}\n")
+            file.write(f"Country: {geo_data['country']}\n")
+            file.write("Region: {geo_data['region']}\n")
+            file.write(f"City: {geo_data['city']}\n")
+            file.write(f"ISP: {geo_data['isp']}\n")
+            file.write(f"Latitude: {geo_data['lat']}\n")
+            file.write(f"Longitude: {geo_data['lon']}\n")
+            file.write(f"Google Maps Link: {generate_map_link(geo_data['lat'], geo_data['lon'])}\n")
+            file.write("=" * 50 + "\n")
+            print(f"Results saved to {filename}")
+    except Exception as e:
+        print(f"Error saving results: {e}")
