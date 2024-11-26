@@ -1,6 +1,7 @@
 import socket
 from datetime import datetime
 import threading
+from serviceFinder import getServicesTCP
 
 # Function to scan a single port
 def scan_port(ip, port, results):
@@ -14,6 +15,7 @@ def scan_port(ip, port, results):
             results["filtered"].append(port)
         else:
             results["closed"].append(port)
+        getServicesTCP(port)
         sock.close()
     except Exception as e:
         results["filtered"].append(port)
