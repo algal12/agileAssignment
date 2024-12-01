@@ -2,9 +2,6 @@ import socket
 from datetime import datetime
 import threading
 
-
-
-
 def scan_udp_port(ip, port, results):
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -29,13 +26,12 @@ def scan_udp_ports(ip, ports):
         thread = threading.Thread(target=scan_udp_port, args=(ip, port, results))
         threads.append(thread)
         thread.start()
-
     for thread in threads:
         thread.join()
-
     end_time = datetime.now()
     print(f"UDP Scan completed in {end_time - start_time}")
     display_results(results)
+    return results
 
 
 def display_results(results):
