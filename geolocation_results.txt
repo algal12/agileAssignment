@@ -1,0 +1,10 @@
+==================================================
+Geolocation Results for IP: 194.219.4.201
+Country: GR
+Region: Attica
+City: Athens
+ISP: AS1241 Nova Telecommunications & Media Single Member S.A
+Latitude: 37.9838
+Longitude: 23.7278
+Google Maps Link: https://www.google.com/maps?q=37.9838,23.7278
+==================================================

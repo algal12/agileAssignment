@@ -32,6 +32,10 @@ def generate_map_link(lat, lon):
 
 def main():
     print("Welcome to IP Geolocation tool")
+    print("Enter the ip addresses you want to locate (seperate with commmas): ")
+    ips = input().strip()
+
+
     while True:
         ip_type = input("Please enter your IP type (4 for IPv4, 6 for IPv6): ").strip()
         if ip_type in ["4", "6"]:

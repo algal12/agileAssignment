@@ -50,7 +50,7 @@ def save_geolocation_results(geo_data, filename="geolocation_results.txt"):
             file.write("=" * 50 + "\n")
             file.write(f"Geolocation Results for IP: {geo_data['ip']}\n")
             file.write(f"Country: {geo_data['country']}\n")
-            file.write("Region: {geo_data['region']}\n")
+            file.write(f"Region: {geo_data['region']}\n")
             file.write(f"City: {geo_data['city']}\n")
             file.write(f"ISP: {geo_data['isp']}\n")
             file.write(f"Latitude: {geo_data['lat']}\n")
@@ -60,3 +60,4 @@ def save_geolocation_results(geo_data, filename="geolocation_results.txt"):
             print(f"Results saved to {filename}")
     except Exception as e:
         print(f"Error saving results: {e}")
+
