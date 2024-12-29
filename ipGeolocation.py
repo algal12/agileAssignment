@@ -1,75 +1,81 @@
-from ipChecker import checkIPType #ip validation
-import requests #for API calls
+import requests
+from ipChecker import checkIPType
+from saveResults import save_geolocation_results
+from history import view_geolocation_history
 
-def validate_ip(ip_type, ip):
-    return checkIPType(ip_type, ip)
 
-def get_geolocation(ip):
+def get_geolocation_data(ip):
+    """Get geolocation data for a given IP address."""
     try:
-        #call API
-        response = requests.get(f"http://ip-api.com/json/{ip}")
-        data = response.json()
+        response = requests.get(f"https://ipinfo.io/{ip}/json")
+        geo_data = response.json()
 
-        if data.get("status") == "success":
-            return {
-                "ip": ip,
-                "country": data.get("country", "unknown"), #unknown for unavailable data from API's response
-                "region": data.get("region", "unknown"),
-                "city": data.get("city", "unknown"),
-                "lat": data.get("lat"),
-                "lon": data.get("lon"),
-                "isp": data.get("isp", "unknown"),
-            }
-        else:
-            return {"error": data.get("message", "Unknown Error")}
+        # Extract latitude and longitude from the loc field (it is comma-separated)
+        loc = geo_data.get('loc', '')
+        if loc:
+            lat, lon = loc.split(',')
+
+        return {
+            'ip': geo_data.get('ip'),
+            'city': geo_data.get('city'),
+            'region': geo_data.get('region'),
+            'country': geo_data.get('country'),
+            'lat': lat,
+            'lon': lon,
+            'isp': geo_data.get('org')
+        }
     except Exception as e:
-        return {"error": e}
+        print(f"Error getting geolocation data: {e}")
+        return None
 
 
-def generate_map_link(lat, lon):
-    return f"https://www.google.com/maps?q={lat},{lon}"
+def ip_geolocator():
+    # Ask if the user wants to view geolocation search history
+    history_option = input("Do you want to view your geolocation search history? (yes/no): ").strip().lower()
+    if history_option == "yes":
+        view_geolocation_history()
+        return  # Exit the program after viewing history
 
-
-def main():
-    print("Welcome to IP Geolocation tool")
-    print("Enter the ip addresses you want to locate (seperate with commmas): ")
-    ips = input().strip()
-
-
-    while True:
-        ip_type = input("Please enter your IP type (4 for IPv4, 6 for IPv6): ").strip()
-        if ip_type in ["4", "6"]:
-            break
-        else:
-            print("Please enter a valid ip type.")
-
-    ip = input ("Enter the IP address to locate: ").strip()
-
-    if not validate_ip(ip_type, ip):
-        print("Invalid IP address. Please restart and try again.")
-        return
-
-    print("IP address validated. Fetching geolocation data...")
-    geo_data = get_geolocation(ip)
-
-    if "error" in geo_data:
-        print(f"Error fetching geolocation data: {geo_data['error']}")
+    # Ask if the user wants to input multiple IPs
+    multiple_ips_option = input("\nDo you want to check multiple IP addresses? (yes/no): ").strip().lower()
+    if multiple_ips_option == "yes":
+        ip_addresses = input("Enter the IP addresses separated by commas: ").strip().split(',')
     else:
-        # geolocation details
-        print("Geolocation Details:")
-        print(f"  IP Address: {geo_data['ip']}")
-        print(f"  Country: {geo_data['country']}")
-        print(f"  Region: {geo_data['region']}")
-        print(f"  City: {geo_data['city']}")
-        print(f"  ISP: {geo_data['isp']}")
-        print(f"  Latitude: {geo_data['lat']}")
-        print(f"  Longitude: {geo_data['lon']}")
+        # If only one IP address is needed
+        ip_addresses = [input("Enter an IP address: ").strip()]
 
-        # Google Maps link
-        map_link = generate_map_link(geo_data['lat'], geo_data['lon'])
-        print(f"Google Maps Link: {map_link}")
+    # Process each IP address
+    for ip in ip_addresses:
+        ip_type = input(f"Enter IP type (4 for IPv4 / 6 for IPv6) for IP {ip}: ").strip()
 
-# run the script
+        if checkIPType(ip_type, ip):
+            print(f"IP address {ip} is valid!")
+
+            # Get geolocation data
+            geo_data = get_geolocation_data(ip)
+
+            if geo_data:
+                # Display the geolocation information
+                print("\nGeolocation Information:")
+                print(f"IP: {geo_data['ip']}")
+                print(f"Country: {geo_data['country']}")
+                print(f"Region: {geo_data['region']}")
+                print(f"City: {geo_data['city']}")
+                print(f"ISP: {geo_data['isp']}")
+                print(f"Latitude: {geo_data['lat']}")
+                print(f"Longitude: {geo_data['lon']}")
+                print(f"Google Maps Link: https://www.google.com/maps?q={geo_data['lat']},{geo_data['lon']}")
+
+                # Save results
+                save_option = input("\nDo you want to save the geolocation results? (yes/no): ").strip().lower()
+                if save_option == "yes":
+                    save_geolocation_results(geo_data)
+
+            else:
+                print(f"Could not retrieve geolocation data for IP {ip}.")
+        else:
+            print(f"Invalid IP address: {ip}. Please check the IP address and try again.")
+
+
 if __name__ == "__main__":
-    main()
-
+    ip_geolocator()
