@@ -40,12 +40,18 @@ def save_scan_results(results, scan_type, filename="scan_results.txt"):
     except Exception as e:
         print(f"Error saving results: {e}")
 
-from ipGeolocation import generate_map_link
-def save_geolocation_results(geo_data, filename="geolocation_results.txt"):
-    """Save the geolocation results to a text file.
-    :param geo_data: The geolocation results dictionary containing "latitude", "longitude", and "accuracy" ports.
-    :param filename: Name of the file to save the results to (default is "geolocation_results.txt")."""
+
+def save_geolocation_results(geo_data, filename="geolocation_results.txt", history_file="geolocation_history.txt"):
+    """Save the geolocation results to a text file and append to history.
+    :param geo_data: The geolocation results dictionary containing "latitude", "longitude", etc.
+    :param filename: Name of the file to save the latest results to (default is "geolocation_results.txt").
+    :param history_file: Name of the file to save the geolocation history (default is "geolocation_history.txt").
+    """
     try:
+        # Create the Google Maps link
+        google_maps_link = f"https://www.google.com/maps?q={geo_data['lat']},{geo_data['lon']}"
+
+        # Save the latest results (overwrite)
         with open(filename, "w") as file:
             file.write("=" * 50 + "\n")
             file.write(f"Geolocation Results for IP: {geo_data['ip']}\n")
@@ -55,9 +61,24 @@ def save_geolocation_results(geo_data, filename="geolocation_results.txt"):
             file.write(f"ISP: {geo_data['isp']}\n")
             file.write(f"Latitude: {geo_data['lat']}\n")
             file.write(f"Longitude: {geo_data['lon']}\n")
-            file.write(f"Google Maps Link: {generate_map_link(geo_data['lat'], geo_data['lon'])}\n")
+            file.write(f"Google Maps Link: {google_maps_link}\n")
             file.write("=" * 50 + "\n")
-            print(f"Results saved to {filename}")
+        print(f"Results saved to {filename}")
+
+        # Append results to the history file
+        with open(history_file, "a") as history:
+            history.write("=" * 50 + "\n")
+            history.write(f"Geolocation Results for IP: {geo_data['ip']}\n")
+            history.write(f"Country: {geo_data['country']}\n")
+            history.write(f"Region: {geo_data['region']}\n")
+            history.write(f"City: {geo_data['city']}\n")
+            history.write(f"ISP: {geo_data['isp']}\n")
+            history.write(f"Latitude: {geo_data['lat']}\n")
+            history.write(f"Longitude: {geo_data['lon']}\n")
+            history.write(f"Google Maps Link: {google_maps_link}\n")
+            history.write("=" * 50 + "\n")
+        print(f"Results appended to {history_file}")
     except Exception as e:
         print(f"Error saving results: {e}")
+
 

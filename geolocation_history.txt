@@ -1,0 +1,40 @@
+==================================================
+Geolocation Results for IP: 8.8.8.8
+Country: US
+Region: California
+City: Mountain View
+ISP: AS15169 Google LLC
+Latitude: 37.4056
+Longitude: -122.0775
+Google Maps Link: https://www.google.com/maps?q=37.4056,-122.0775
+==================================================
+==================================================
+Geolocation Results for IP: 8.8.8.8
+Country: US
+Region: California
+City: Mountain View
+ISP: AS15169 Google LLC
+Latitude: 37.4056
+Longitude: -122.0775
+Google Maps Link: https://www.google.com/maps?q=37.4056,-122.0775
+==================================================
+==================================================
+Geolocation Results for IP: 8.8.8.8
+Country: US
+Region: California
+City: Mountain View
+ISP: AS15169 Google LLC
+Latitude: 37.4056
+Longitude: -122.0775
+Google Maps Link: https://www.google.com/maps?q=37.4056,-122.0775
+==================================================
+==================================================
+Geolocation Results for IP: 8.8.4.4
+Country: US
+Region: California
+City: Mountain View
+ISP: AS15169 Google LLC
+Latitude: 37.4056
+Longitude: -122.0775
+Google Maps Link: https://www.google.com/maps?q=37.4056,-122.0775
+==================================================

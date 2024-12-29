@@ -31,7 +31,7 @@ def display_scan_history():
     except Exception as e:
         print(f"Error reading scan history: {e}")
 
-def view_geolocation_history(filename="geolocation_results.txt"):
+def view_geolocation_history(filename="geolocation_history.txt"):
     """View the history of IP geolocation searches."""
     try:
         with open(filename, "r") as file:
@@ -43,3 +43,4 @@ def view_geolocation_history(filename="geolocation_results.txt"):
                 print("No history found.")
     except Exception as e:
         print(f"Error reading history: {e}")
+

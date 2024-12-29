@@ -39,7 +39,7 @@ def ip_geolocator():
     # Ask if the user wants to input multiple IPs
     multiple_ips_option = input("\nDo you want to check multiple IP addresses? (yes/no): ").strip().lower()
     if multiple_ips_option == "yes":
-        ip_addresses = input("Enter the IP addresses separated by commas: ").strip().split(',')
+        ip_addresses = input("Enter the IP addresses separated by commas (Do not add spaces) : ").strip().split(',')
     else:
         # If only one IP address is needed
         ip_addresses = [input("Enter an IP address: ").strip()]
