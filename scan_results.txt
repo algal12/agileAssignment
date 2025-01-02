@@ -1,11 +1,11 @@
-Port Scan Results (TCP scan)
+Port Scan Results (UDP scan)
 ==================================================
 Open Ports:
-Port 135: Open, Service: epmap
+No open ports found.
 
 Closed Ports:
 No closed ports found.
 
 Filtered Ports:
-No filtered ports found.
+Port 100: Filtered
 ==================================================
