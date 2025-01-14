@@ -98,3 +98,33 @@ def save_geolocation_results(geo_data, filename="geolocation_results.txt", histo
         print(f"Error saving results: {e}")
 
 
+def save_geolocation_history(geo_data, history_file="geolocation_history.txt"):
+    google_maps_link = f"https://www.google.com/maps?q={geo_data['lat']},{geo_data['lon']}"
+    try:
+        with open(history_file, "a") as history:
+            history.write("=" * 50 + "\n")
+            history.write(f"Geolocation Results for IP: {geo_data['ip']}\n")
+            history.write(f"Country: {geo_data['country']}\n")
+            history.write(f"Region: {geo_data['region']}\n")
+            history.write(f"City: {geo_data['city']}\n")
+            history.write(f"ISP: {geo_data['isp']}\n")
+            history.write(f"Latitude: {geo_data['lat']}\n")
+            history.write(f"Longitude: {geo_data['lon']}\n")
+            history.write(f"Google Maps Link: {google_maps_link}\n")
+            history.write("=" * 50 + "\n")
+        print(f"Results appended to {history_file}")
+    except Exception as e:
+        print(f"Error saving results: {e}")
+
+def save_scan_history(results, scan_type, ip, history_file="scan_history.txt"):
+    try:
+        with open(history_file, "a") as history:
+
+            history.write(f"{ip} \n")
+            history.write("Summary:\n")
+            history.write(f"Open Ports: {', '.join(map(str, results.get('open', []))) or 'None'}\n")
+            history.write("=" * 50 + "\n\n")
+        print(f"Summary appended to {history_file}")
+
+    except Exception as e:
+        print(f"Error saving results: {e}")

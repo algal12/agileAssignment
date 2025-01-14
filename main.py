@@ -6,7 +6,7 @@ import threading
 import re
 import webbrowser
 from queue import Queue  # For thread-safe queue
-from saveResults import save_geolocation_results, save_scan_results
+from saveResults import save_geolocation_results, save_scan_results, save_geolocation_history, save_scan_history
 
 # Function to check the type of IP
 def checkIPType(ip_type, ip):
@@ -95,7 +95,10 @@ def start_port_scanner(ip):
             messagebox.showinfo("Port Scan Result", f"Open Ports: {open_ports}")
             save_prompt = messagebox.askyesno("Save Results", "Do you want to save the port scan results?")
             if save_prompt:
-                save_scan_results({"open": open_ports}, "TCP", ip)  # Save to scan_results.txt
+                save_scan_results({"open": open_ports}, "TCP", ip)
+            else:
+                save_scan_history({"open": open_ports}, "TCP", ip)
+                # Save to scan_results.txt
 
         else:
             messagebox.showinfo("Port Scan Result", "No open ports found.")
@@ -122,7 +125,9 @@ def start_ip_geolocator(ip):
                 webbrowser.open(maps_link)
             save_prompt = messagebox.askyesno("Save Results", "Do you want to save the geolocation results?")
             if save_prompt:
-                save_geolocation_results(geo_data)  # Save to geolocation_results.txt
+                save_geolocation_results(geo_data)
+            else:
+                save_geolocation_history(geo_data)# Save to geolocation_results.txt
         else:
             messagebox.showerror("Geolocation Error", "Failed to retrieve geolocation data.")
     else:
