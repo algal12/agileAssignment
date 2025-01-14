@@ -1,10 +1,12 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, Toplevel, scrolledtext
 import socket
 import requests
 import threading
 import re
 import webbrowser
+from queue import Queue  # For thread-safe queue
+from saveResults import save_geolocation_results, save_scan_results
 
 # Function to check the type of IP
 def checkIPType(ip_type, ip):
@@ -53,16 +55,19 @@ def get_geolocation_data(ip):
         print(f"Error fetching geolocation data: {e}")
         return None
 
-# Port scanner logic
+# Port scanner logic using a Queue for thread-safe results
 def scan_ports(ip, start_port, end_port):
     open_ports = []
+    queue = Queue()
+
     def scan(port):
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.settimeout(0.5)
-                s.connect((ip, port))
-                open_ports.append(port)
-        except:
+                result = s.connect_ex((ip, port))  # Returns 0 if successful
+                if result == 0:  # If port is open
+                    queue.put(port)
+        except socket.error:
             pass
 
     threads = []
@@ -74,16 +79,24 @@ def scan_ports(ip, start_port, end_port):
     for thread in threads:
         thread.join()
 
+    # Collect results from the queue
+    while not queue.empty():
+        open_ports.append(queue.get())
+
     return open_ports
 
 # Functionality for Port Scanner
 def start_port_scanner(ip):
     start_port = 1
-    end_port = 1024
+    end_port = 65535
     if checkIPType("4", ip) or checkIPType("6", ip):
         open_ports = scan_ports(ip, start_port, end_port)
         if open_ports:
             messagebox.showinfo("Port Scan Result", f"Open Ports: {open_ports}")
+            save_prompt = messagebox.askyesno("Save Results", "Do you want to save the port scan results?")
+            if save_prompt:
+                save_scan_results({"open": open_ports}, "TCP", ip)  # Save to scan_results.txt
+
         else:
             messagebox.showinfo("Port Scan Result", "No open ports found.")
     else:
@@ -105,18 +118,44 @@ def start_ip_geolocator(ip):
                 f"Google Maps Link: "
             )
             maps_link = f"https://www.google.com/maps?q={geo_data['lat']},{geo_data['lon']}"
-            # Prompt user to open link
             if messagebox.askyesno("Geolocation Result", result + "Open Google Maps?"):
                 webbrowser.open(maps_link)
+            save_prompt = messagebox.askyesno("Save Results", "Do you want to save the geolocation results?")
+            if save_prompt:
+                save_geolocation_results(geo_data)  # Save to geolocation_results.txt
         else:
             messagebox.showerror("Geolocation Error", "Failed to retrieve geolocation data.")
     else:
         messagebox.showerror("Input Error", "Invalid IP address. Please enter a valid IP.")
 
-# Functionality for combination
+# Function to run both functionalities
 def start_combination(ip):
     start_ip_geolocator(ip)
     start_port_scanner(ip)
+
+# Function to view history
+def view_history():
+    history_window = Toplevel(root)
+    history_window.title("History Viewer")
+    history_window.geometry("800x600")
+
+    text_area = scrolledtext.ScrolledText(history_window, wrap=tk.WORD, font=("Arial", 12))
+    text_area.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+
+    try:
+        with open("scan_history.txt", "r") as scan_file:
+            text_area.insert(tk.END, "Scan History:\n")
+            text_area.insert(tk.END, scan_file.read())
+
+        with open("geolocation_history.txt", "r") as geo_file:
+            text_area.insert(tk.END, "\nGeolocation History:\n")
+            text_area.insert(tk.END, geo_file.read())
+    except FileNotFoundError:
+        text_area.insert(tk.END, "No history files found.\n")
+    except Exception as e:
+        text_area.insert(tk.END, f"Error reading history: {e}\n")
+
+    text_area.config(state=tk.DISABLED)
 
 # Create the main application window
 root = tk.Tk()
@@ -124,61 +163,19 @@ root.title("Cybersecurity Tools")
 root.geometry("1280x720")
 root.configure(bg="#2C3E50")
 
-# Use grid to manage frames for scene switching
-root.rowconfigure(0, weight=1)
-root.columnconfigure(0, weight=1)
+# Input field for user IP entry
+ip_entry = tk.StringVar()
 
-# Create frames for each scene
-main_menu = tk.Frame(root, bg="#2C3E50")
-port_scanner_screen = tk.Frame(root, bg="#1B4F72")
-ip_geolocator_screen = tk.Frame(root, bg="#145A32")
-combination_screen = tk.Frame(root, bg="#512E5F")
+tk.Label(root, text="Enter IP Address:", font=("Arial", 18), bg="#2C3E50", fg="white").pack(pady=10)
+tk.Entry(root, textvariable=ip_entry, font=("Arial", 18), width=40).pack(pady=10)
 
-for frame in (main_menu, port_scanner_screen, ip_geolocator_screen, combination_screen):
-    frame.grid(row=0, column=0, sticky="nsew")
+# Main Menu
+tk.Label(root, text="Cybersecurity Tools", font=("Arial", 55, "bold"), bg="#2C3E50", fg="white").pack(pady=40)
+tk.Button(root, text="Port Scanner", command=lambda: start_port_scanner(ip_entry.get()), font=("Arial", 20), bg="#2980B9", fg="white").pack(pady=10)
+tk.Button(root, text="IP Geolocator", command=lambda: start_ip_geolocator(ip_entry.get()), font=("Arial", 20), bg="#27AE60", fg="white").pack(pady=10)
+tk.Button(root, text="Both", command=lambda: start_combination(ip_entry.get()), font=("Arial", 20), bg="#8E44AD", fg="white").pack(pady=10)
+tk.Button(root, text="View History", command=view_history, font=("Arial", 20), bg="#9B59B6", fg="white").pack(pady=10)
+tk.Button(root, text="Exit", command=root.destroy, font=("Arial", 20), bg="#E74C3C", fg="white").pack(pady=10)
 
-# Helper function to switch frames
-def show_frame(frame):
-    frame.tkraise()
-
-# Add consistent styles
-def styled_button(master, text, command, bg_color):
-    return tk.Button(
-        master,
-        text=text,
-        command=command,
-        font=("Arial", 20),
-        bg=bg_color,
-        fg="white",
-        relief="raised",
-        bd=3
-    )
-
-# Main Menu Frame
-tk.Label(main_menu, text="Cybersecurity Tools", font=("Arial", 55, "bold"), bg="#2C3E50", fg="white").pack(pady=40)
-
-styled_button(main_menu, "Port Scanner", lambda: show_frame(port_scanner_screen), "#2980B9").pack(pady=10, ipadx=10, ipady=5)
-styled_button(main_menu, "IP Geolocator", lambda: show_frame(ip_geolocator_screen), "#27AE60").pack(pady=10, ipadx=10, ipady=5)
-styled_button(main_menu, "Both", lambda: show_frame(combination_screen), "#8E44AD").pack(pady=10, ipadx=10, ipady=5)
-styled_button(main_menu, "Exit", root.destroy, "#E74C3C").pack(pady=20, ipadx=10, ipady=5)
-
-# Individual Frames
-def setup_screen(frame, title, ip_var, action, color):
-    tk.Label(frame, text=title, font=("Arial", 40, "bold"), bg=color, fg="white").pack(pady=40)
-    tk.Entry(frame, textvariable=ip_var, font=("Arial", 18), width=40).pack(pady=10)
-    styled_button(frame, "Start", lambda: action(ip_var.get()), "#27AE60").pack(pady=20, ipadx=10, ipady=10)
-    styled_button(frame, "Back to Menu", lambda: show_frame(main_menu), "#C0392B").pack(pady=10, ipadx=10, ipady=5)
-
-scanner_ip = tk.StringVar()
-geolocator_ip = tk.StringVar()
-combination_ip = tk.StringVar()
-
-setup_screen(port_scanner_screen, "Port Scanner", scanner_ip, start_port_scanner, "#1B4F72")
-setup_screen(ip_geolocator_screen, "IP Geolocator", geolocator_ip, start_ip_geolocator, "#145A32")
-setup_screen(combination_screen, "Port Scanner + IP Geolocator", combination_ip, start_combination, "#512E5F")
-
-# Show the main menu initially
-show_frame(main_menu)
-
-# Run the main loop
+# Run the application
 root.mainloop()

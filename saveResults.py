@@ -1,12 +1,16 @@
-def save_scan_results(results, scan_type, filename="scan_results.txt"):
+def save_scan_results(results, scan_type, ip, filename="scan_results.txt", history_file="scan_history.txt"):
     """
-    Save the full scan results (open, closed, filtered) and services to a text file.
+    Save the full scan results (open, closed, filtered) and services to a text file,
+    and append a summary to the history file.
     :param results: The scan results dictionary containing "open", "closed", and "filtered" ports.
     :param scan_type: Type of scan (TCP, UDP, etc.)
-    :param filename: Name of the file to save the results to (default is "scan_results.txt").
+    :param filename: Name of the file to save the detailed results to (default is "scan_results.txt").
+    :param history_file: Name of the file to save the history to (default is "scan_history.txt").
     """
     try:
+        # Save detailed results to the main results file
         with open(filename, "w") as file:
+            file.write(ip)
             file.write(f"Port Scan Results ({scan_type} scan)\n")
             file.write("=" * 50 + "\n")
 
@@ -36,9 +40,21 @@ def save_scan_results(results, scan_type, filename="scan_results.txt"):
                 file.write("No filtered ports found.\n")
 
             file.write("=" * 50 + "\n")
-            print(f"Results saved to {filename}")
+        print(f"Results saved to {filename}")
+
+        # Save summary to the history file
+        with open(history_file, "a") as history:
+
+
+            history.write(f"{ip} \n")
+            history.write("Summary:\n")
+            history.write(f"Open Ports: {', '.join(map(str, results.get('open', []))) or 'None'}\n")
+            history.write("=" * 50 + "\n\n")
+        print(f"Summary appended to {history_file}")
+
     except Exception as e:
         print(f"Error saving results: {e}")
+
 
 
 def save_geolocation_results(geo_data, filename="geolocation_results.txt", history_file="geolocation_history.txt"):

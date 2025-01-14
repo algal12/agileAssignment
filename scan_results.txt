@@ -1,11 +1,20 @@
-Port Scan Results (UDP scan)
+4.2.2.1Port Scan Results (TCP scan)
 ==================================================
 Open Ports:
-No open ports found.
+Port 25: Open, Service: Unknown
+Port 110: Open, Service: Unknown
+Port 119: Open, Service: Unknown
+Port 143: Open, Service: Unknown
+Port 465: Open, Service: Unknown
+Port 563: Open, Service: Unknown
+Port 587: Open, Service: Unknown
+Port 53: Open, Service: Unknown
+Port 993: Open, Service: Unknown
+Port 995: Open, Service: Unknown
 
 Closed Ports:
 No closed ports found.
 
 Filtered Ports:
-Port 100: Filtered
+No filtered ports found.
 ==================================================
