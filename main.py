@@ -176,11 +176,11 @@ tk.Entry(root, textvariable=ip_entry, font=("Arial", 18), width=40).pack(pady=10
 
 # Main Menu
 tk.Label(root, text="Cybersecurity Tools", font=("Arial", 55, "bold"), bg="#2C3E50", fg="white").pack(pady=40)
-tk.Button(root, text="Port Scanner", command=lambda: start_port_scanner(ip_entry.get()), font=("Arial", 20), bg="#2980B9", fg="white").pack(pady=10)
-tk.Button(root, text="IP Geolocator", command=lambda: start_ip_geolocator(ip_entry.get()), font=("Arial", 20), bg="#27AE60", fg="white").pack(pady=10)
-tk.Button(root, text="Both", command=lambda: start_combination(ip_entry.get()), font=("Arial", 20), bg="#8E44AD", fg="white").pack(pady=10)
-tk.Button(root, text="View History", command=view_history, font=("Arial", 20), bg="#9B59B6", fg="white").pack(pady=10)
-tk.Button(root, text="Exit", command=root.destroy, font=("Arial", 20), bg="#E74C3C", fg="white").pack(pady=10)
+tk.Button(root, text="Port Scanner", command=lambda: start_port_scanner(ip_entry.get()), font=("Arial", 20), bg="DodgerBlue2", fg="white").pack(pady=10)
+tk.Button(root, text="IP Geolocator", command=lambda: start_ip_geolocator(ip_entry.get()), font=("Arial", 20), bg="hot pink", fg="white").pack(pady=10)
+tk.Button(root, text="Both", command=lambda: start_combination(ip_entry.get()), font=("Arial", 20), bg="MediumOrchid1", fg="white").pack(pady=10)
+tk.Button(root, text="View History", command=view_history, font=("Arial", 20), bg="PaleGreen3", fg="white").pack(pady=10)
+tk.Button(root, text="Exit", command=root.destroy, font=("Arial", 20), bg="firebrick1", fg="white").pack(pady=10)
 
 # Run the application
 root.mainloop()

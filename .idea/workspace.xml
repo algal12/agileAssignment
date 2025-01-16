@@ -7,7 +7,6 @@
     <list default="true" id="56d3e4e8-8f4d-4dd3-af3c-3dcbea9dfa96" name="Changes" comment="Shows results in messagebox +added exit function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saveResults.py" beforeDir="false" afterPath="$PROJECT_DIR$/saveResults.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +31,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/algal12/agileAssignment.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/algal12/agileAssignment&quot;,
     &quot;accountId&quot;: &quot;94ae8fc1-ebe7-42bb-8f22-5b340e2cbabb&quot;
   }
 }</component>
@@ -51,28 +50,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.ipChecker.executor": "Run",
-    "Python.ipGeolocation.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.portScanner.executor": "Run",
-    "Python.portTCPScanner.executor": "Debug",
-    "Python.serviceFinder.executor": "Debug",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.ipChecker.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ipGeolocation.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.portScanner.executor&quot;: &quot;Run&quot;,
+    &quot;Python.portTCPScanner.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.serviceFinder.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="portScanner" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="PythonProject" />
@@ -126,6 +125,9 @@
       <workItem from="1736656257787" duration="29000" />
       <workItem from="1736813679608" duration="7503000" />
       <workItem from="1736870255828" duration="2927000" />
+      <workItem from="1736875014975" duration="147000" />
+      <workItem from="1736875174948" duration="673000" />
+      <workItem from="1736987840965" duration="318000" />
     </task>
     <task id="LOCAL-00001" summary="Shows results in messagebox +added exit function">
       <option name="closed" value="true" />
