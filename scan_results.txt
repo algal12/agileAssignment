@@ -1,20 +1,28 @@
-4.2.2.1Port Scan Results (TCP scan)
+192.168.1.23Port Scan Results (TCP scan)
 ==================================================
 Open Ports:
-Port 25: Open, Service: Unknown
-Port 110: Open, Service: Unknown
-Port 119: Open, Service: Unknown
-Port 143: Open, Service: Unknown
-Port 465: Open, Service: Unknown
-Port 563: Open, Service: Unknown
-Port 587: Open, Service: Unknown
-Port 53: Open, Service: Unknown
-Port 993: Open, Service: Unknown
-Port 995: Open, Service: Unknown
-
-Closed Ports:
-No closed ports found.
-
-Filtered Ports:
-No filtered ports found.
+Port 25: Open 
+Port 135: Open 
+Port 139: Open 
+Port 143: Open 
+Port 119: Open 
+Port 110: Open 
+Port 445: Open 
+Port 465: Open 
+Port 563: Open 
+Port 587: Open 
+Port 993: Open 
+Port 995: Open 
+Port 5040: Open 
+Port 5357: Open 
+Port 49664: Open 
+Port 49665: Open 
+Port 49666: Open 
+Port 49667: Open 
+Port 49668: Open 
+Port 49670: Open 
+Port 49671: Open 
+Port 49674: Open 
+Port 57621: Open 
+Port 63438: Open 
 ==================================================
